@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:TourBuddy.ViewModels"
+             x:Class="TourBuddy.Views.AlarmPage"
+             x:DataType="vm:AlarmViewModel"
+             Title="Set Alarm">
+
+    <ScrollView>
+        <VerticalStackLayout Padding="20" Spacing="15">
+
+            <Frame BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray950}}"
+                   Padding="15"
+                   CornerRadius="10"
+                   HasShadow="True"
+                   Margin="0,10,0,10">
+                <VerticalStackLayout>
+                    <Label Text="Alarm" 
+                           FontSize="24" 
+                           FontAttributes="Bold" 
+                           TextColor="White" 
+                           HorizontalOptions="Center" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Alarm Time Section -->
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout>
+                    <Label Text="Set Alarm Time" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" />
+
+                    <TimePicker Time="{Binding AlarmTime}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Alarm Label Section -->
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout>
+                    <Label Text="Label" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" />
+
+                    <Entry Text="{Binding AlarmLabel}" 
+                           Placeholder="Alarm Label" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Alarm Sound Section -->
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout>
+                    <Label Text="Select Sound" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" />
+
+                    <Picker SelectedItem="{Binding SelectedSound}">
+                        <Picker.Items>
+                            <x:String>Beep</x:String>
+                            <x:String>Chime</x:String>
+                            <x:String>Ring</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Volume Section -->
+            <Frame Padding="15" CornerRadius="10" HasShadow="True">
+                <VerticalStackLayout>
+                    <Label Text="Set Volume" 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           HorizontalOptions="Center" />
+
+                    <Slider Minimum="0" Maximum="100" Value="{Binding Volume}" />
+                </VerticalStackLayout>
+            </Frame>
+
+            <!-- Save Button -->
+            <Button Text="Save Alarm" 
+                    Command="{Binding SaveAlarmCommand}" 
+                    BackgroundColor="Green" 
+                    TextColor="White" 
+                    Margin="0,20,0,0" />
+
+            <!-- Cancel Button -->
+            <Button Text="Cancel" 
+                    Command="{Binding CancelCommand}" 
+                    BackgroundColor="Transparent" 
+                    TextColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource White}}"
+                    Margin="0,10,0,0" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

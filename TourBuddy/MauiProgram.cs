@@ -49,6 +49,9 @@ namespace TourBuddy
             builder.Services.AddTransient<LoginViewModel>();
             builder.Services.AddTransient<LoginPage>();
 
+            builder.Services.AddTransient<AlarmViewModel>();
+            builder.Services.AddTransient<AlarmPage>();
+
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddTransient<RegisterPage>();
 

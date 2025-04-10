@@ -8,6 +8,7 @@ namespace TourBuddy
         {
             InitializeComponent();
             // Register routes
+            Routing.RegisterRoute(nameof(AlarmPage), typeof(AlarmPage));
             Routing.RegisterRoute(nameof(RegisterPage), typeof(RegisterPage));
             Routing.RegisterRoute(nameof(ForgotPasswordPage), typeof(ForgotPasswordPage));
             Routing.RegisterRoute(nameof(ResetPasswordPage), typeof(ResetPasswordPage));

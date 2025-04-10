@@ -35,18 +35,26 @@
             <!-- Set Alarm Section -->
             <Frame Padding="15" CornerRadius="10" HasShadow="True">
                 <VerticalStackLayout Spacing="10">
-                    <Label Text="Set Alarm" 
+                    <Label Text="Alarm" 
                            FontSize="18" 
                            FontAttributes="Bold" 
                            HorizontalOptions="Center" 
                            Margin="0,0,0,10" />
 
-                    <Button Text="Set Alarm" 
+                    <HorizontalStackLayout Spacing="10" HorizontalOptions="Center">
+                        <Button Text="Set Alarm" 
                             Command="{Binding NavigateToAlarmPageCommand}" 
-                            BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray950}}"
+                            BackgroundColor="Red"
                             TextColor="White" 
-                            Margin="0,10,0,0"/>
+                            WidthRequest="140"/>
 
+                        <Button Text="Logs Alarm" 
+                            Command="{Binding NavigateToAlarmLogCommand}" 
+                            BackgroundColor="DarkGreen"
+                            TextColor="White" 
+                            WidthRequest="140"/>
+                    </HorizontalStackLayout>
+                    <!-- BackgroundColor="{AppThemeBinding Light={StaticResource Primary}, Dark={StaticResource Gray950}}" -->
                 </VerticalStackLayout>
             </Frame>
 

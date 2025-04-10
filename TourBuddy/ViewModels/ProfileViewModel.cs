@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using TourBuddy.Helpers;
 using TourBuddy.Models;
+using TourBuddy.Views;
 using TourBuddy.Services.Auth;
 using TourBuddy.Services.Database;
 using System.ComponentModel;
@@ -102,6 +103,10 @@ namespace TourBuddy.ViewModels
 
         private ICommand _logoutCommand;
         public ICommand LogoutCommand => _logoutCommand ??= new Command(async () => await LogoutAsync());
+
+        // New Command for navigating to the AlarmPage
+        private ICommand _navigateToAlarmPageCommand;
+        public ICommand NavigateToAlarmPageCommand => _navigateToAlarmPageCommand ??= new Command(async () => await NavigateToAlarmPage());
 
         // Constructor
         public ProfileViewModel(IAuthService authService, SyncService syncService)
@@ -272,6 +277,12 @@ namespace TourBuddy.ViewModels
         protected void ClearErrorMessage()
         {
             ErrorMessage = string.Empty;
+        }
+
+        // Navigation to AlarmPage
+        private async Task NavigateToAlarmPage()
+        {
+            await Shell.Current.GoToAsync(nameof(AlarmPage)); // Navigate to AlarmPage
         }
 
         #region INotifyPropertyChanged
