@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TourBuddy.Views.SplashPage"
+             BackgroundColor="#0E2A47"
+             NavigationPage.HasNavigationBar="False">
+
+    <Grid>
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="20">
+            <Image Source="splash.svg" WidthRequest="150" HeightRequest="150" />
+
+            <!-- Label with font style -->
+            <Label Text="Welcome Buddy!"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   FontFamily="Arial" 
+                TextColor="#ffffff"
+                   HorizontalTextAlignment="Center" />
+
+                <!-- Thicker ActivityIndicator -->
+                <ActivityIndicator 
+                IsRunning="True" 
+                Color="#20C997" 
+                WidthRequest="60" 
+                    HeightRequest="60"
+                    HorizontalOptions="Center" />
+        </VerticalStackLayout>
+
+        <Label Grid.Row="1"
+               Text="v1.0"
+               FontFamily="Montserrat"
+               FontSize="12"
+               TextColor="#20C997"
+               HorizontalOptions="Center"
+               VerticalOptions="End"
+               Margin="0,10,0,0" />
+
+
+    </Grid>
+</ContentPage>

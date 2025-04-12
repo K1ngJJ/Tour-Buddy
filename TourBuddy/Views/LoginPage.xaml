@@ -22,7 +22,7 @@
                     Aspect="AspectFit" />
 
                 <Label
-                    Text="TourBuddy"
+                    Text="Tour Buddy"
                     Style="{StaticResource Headline}"
                     HorizontalOptions="Center" />
             </VerticalStackLayout>

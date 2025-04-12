@@ -153,12 +153,13 @@ namespace TourBuddy.ViewModels
         public async Task LoadAlarms()
         {
             Alarms.Clear();
-            var alarmsFromStorage = await _alarmStorage.LoadAllAsync();
+            var alarmsFromStorage = await _alarmStorage.LoadAllAsync(); // Load alarms from storage
             foreach (var alarm in alarmsFromStorage)
             {
-                Alarms.Add(alarm);
+                Alarms.Add(alarm); // Add them to the ObservableCollection
             }
         }
+
 
         private async Task SaveAlarm()
         {

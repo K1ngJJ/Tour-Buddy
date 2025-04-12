@@ -2,6 +2,7 @@
 using Plugin.LocalNotification.EventArgs;
 using Plugin.Maui.Audio;
 using TourBuddy.Services.Database;
+using TourBuddy.Views;
 
 namespace TourBuddy
 {
@@ -17,9 +18,21 @@ namespace TourBuddy
             _sqliteService = sqliteService;
             _syncService = syncService;
 
-            MainPage = new AppShell();
+            MainPage = new SplashPage();
+
+            // Simulate loading or do startup tasks
+            Task.Run(async () =>
+            {
+                await Task.Delay(3000); // Simulate loading
+                MainThread.BeginInvokeOnMainThread(() =>
+                {
+                    MainPage = new AppShell(); // Or your main page
+                });
+            });
             LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationTapped;
         }
+
+
 
         protected override async void OnStart()
         {

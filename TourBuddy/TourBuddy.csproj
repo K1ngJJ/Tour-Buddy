@@ -24,7 +24,7 @@
 		<ApplicationTitle>Tour Buddy</ApplicationTitle>
 
 		<!-- App Identifier -->
-		<ApplicationId>com.companyname.tourbuddy</ApplicationId>
+		<ApplicationId>com.itdc.tourbuddy</ApplicationId>
 
 		<!-- Versions -->
 		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
@@ -87,6 +87,9 @@
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	  <MauiXaml Update="Views\AlarmPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
+	  <MauiXaml Update="Views\SplashPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
 	</ItemGroup>

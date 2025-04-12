@@ -13,34 +13,53 @@ namespace TourBuddy.Services.Alarm
 
         public AlarmStorage()
         {
+            // Get database path from local storage folder
             var databasePath = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), "alarms.db3");
             _database = new SQLiteConnection(databasePath);
+
+            // Create the table if it doesn't exist
             _database.CreateTable<AlarmModel>();
         }
 
         public async Task<List<AlarmModel>> LoadAllAsync()
         {
-            return await Task.FromResult(_database.Table<AlarmModel>().ToList());
+            return await Task.Run(() => _database.Table<AlarmModel>().ToList());
         }
 
         public async Task SaveAsync(AlarmModel alarm)
         {
-            if (alarm.Id == 0)
+            try
             {
-                _database.Insert(alarm); // SQLite will auto-assign ID if AlarmModel uses [PrimaryKey, AutoIncrement]
+                await Task.Run(() =>
+                {
+                    if (alarm.Id == 0)
+                    {
+                        _database.Insert(alarm); // SQLite will auto-assign ID if AlarmModel uses [PrimaryKey, AutoIncrement]
+                    }
+                    else
+                    {
+                        _database.Update(alarm);
+                    }
+                });
             }
-            else
+            catch (Exception ex)
             {
-                _database.Update(alarm);
+                // Log or handle any exceptions
+                Console.WriteLine($"Error saving alarm: {ex.Message}");
             }
-
-            await Task.CompletedTask;
         }
 
         public async Task DeleteAsync(AlarmModel alarm)
         {
-            _database.Delete<AlarmModel>(alarm.Id);
-            await Task.CompletedTask;
+            try
+            {
+                await Task.Run(() => _database.Delete<AlarmModel>(alarm.Id));
+            }
+            catch (Exception ex)
+            {
+                // Log or handle any exceptions
+                Console.WriteLine($"Error deleting alarm: {ex.Message}");
+            }
         }
     }
 }
