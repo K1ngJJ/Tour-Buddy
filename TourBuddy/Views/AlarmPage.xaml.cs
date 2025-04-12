@@ -13,5 +13,13 @@ namespace TourBuddy.Views
             _viewModel = viewModel;
             BindingContext = _viewModel;
         }
+
+        protected override void OnDisappearing()
+        {
+            base.OnDisappearing();
+
+            // Call the OnPageDisappearing method in the ViewModel to stop the sound
+            (BindingContext as AlarmViewModel)?.OnPageDisappearing();
+        }
     }
 }

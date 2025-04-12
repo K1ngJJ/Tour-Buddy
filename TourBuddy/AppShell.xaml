@@ -29,6 +29,11 @@
       ContentTemplate="{DataTemplate views:AlarmPage}"
       Route="AlarmPage" />
 
+    <ShellContent
+      Title="Alarm"
+      ContentTemplate="{DataTemplate views:AlarmLogPage}"
+      Route="AlarmLogPage" />
+
     <Shell.BackButtonBehavior>
         <BackButtonBehavior IsVisible="True" Command="{Binding GoBackCommand}" />
     </Shell.BackButtonBehavior>

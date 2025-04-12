@@ -21,7 +21,7 @@
 		<Nullable>enable</Nullable>
 
 		<!-- Display name -->
-		<ApplicationTitle>TourBuddy</ApplicationTitle>
+		<ApplicationTitle>Tour Buddy</ApplicationTitle>
 
 		<!-- App Identifier -->
 		<ApplicationId>com.companyname.tourbuddy</ApplicationId>
@@ -43,10 +43,10 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIcon Include="Resources\AppIcon\tourbuddy.svg" ForegroundFile="Resources\AppIcon\tourbuddy.svg" Color="#0E2A47" />
 
 		<!-- Splash Screen -->
-		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#0E2A47" BaseSize="128,128" />
 
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
@@ -60,6 +60,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <AndroidResource Remove="Platforms\Android\Resources\drawable\ic_alarm.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MultiDexMainDexList Include="Platforms\Android\Resources\drawable\ic_alarm.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Berry.Maui" Version="1.4.1" />
+		<PackageReference Include="Berry.Maui.MediaElement" Version="1.4.1" />
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="MailKit" Version="4.11.0" />
 		<PackageReference Include="Microsoft.Data.SqlClient" Version="6.0.1" />
@@ -67,11 +77,15 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 		<PackageReference Include="Plugin.LocalNotification" Version="11.1.4" />
+		<PackageReference Include="Plugin.Maui.Audio" Version="4.0.0-preview2" />
 		<PackageReference Include="sqlite-net-pcl" Version="1.9.172" />
 		<PackageReference Include="SQLitePCLRaw.bundle_green" Version="2.1.11" />
 	</ItemGroup>
 
 	<ItemGroup>
+	  <MauiXaml Update="Views\AlarmLogPage.xaml">
+	    <Generator>MSBuild:Compile</Generator>
+	  </MauiXaml>
 	  <MauiXaml Update="Views\AlarmPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>

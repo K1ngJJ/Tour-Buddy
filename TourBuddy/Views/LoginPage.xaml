@@ -7,67 +7,129 @@
              Title="{Binding Title}"
              Shell.NavBarIsVisible="False">
 
-    <Grid RowDefinitions="*,Auto,Auto,*" 
-          ColumnDefinitions="*,*"
-          Padding="20"
-          RowSpacing="15"
-          ColumnSpacing="10">
+    <ScrollView>
+        <Grid RowDefinitions="*,Auto,Auto,Auto,*"
+              ColumnDefinitions="*,*"
+              Padding="20"
+              RowSpacing="15"
+              ColumnSpacing="10">
 
-        <!-- App Title -->
-        <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Center">
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="150"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a hovercraft number nine" />
+            <!-- App Title -->
+            <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Center">
+                <Image
+                    Source="dotnet_bot.png"
+                    HeightRequest="150"
+                    Aspect="AspectFit" />
 
-            <Label
-                Text="TourBuddy"
-                Style="{StaticResource Headline}"
-                SemanticProperties.HeadingLevel="Level1" />
-        </VerticalStackLayout>
+                <Label
+                    Text="TourBuddy"
+                    Style="{StaticResource Headline}"
+                    HorizontalOptions="Center" />
+            </VerticalStackLayout>
 
-        <!-- Error Message -->
-        <Label Grid.Row="1" 
-               Grid.ColumnSpan="2" 
-               Text="{Binding ErrorMessage}" 
-               TextColor="Red" 
-               HorizontalOptions="Center"
-               IsVisible="{Binding HasError}" />
+            <!-- Error Message -->
+            <Label Grid.Row="1" 
+                   Grid.ColumnSpan="2" 
+                   Text="{Binding ErrorMessage}" 
+                   TextColor="Red" 
+                   HorizontalOptions="Center"
+                   IsVisible="{Binding HasError}" />
 
-        <!-- Form -->
-        <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="2" Spacing="15">
-            <Entry Placeholder="Email Address" 
-                   Text="{Binding Email}" 
-                   Keyboard="Email" 
-                   ReturnType="Next" />
+            <!-- Form -->
+            <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="2" Spacing="5">
+                <Entry Placeholder="Email Address" 
+                       Text="{Binding Email}" 
+                       Keyboard="Email" 
+                       ReturnType="Next" />
 
-            <Entry Placeholder="Password" 
-                   Text="{Binding Password}" 
-                   IsPassword="True" 
-                   ReturnType="Done" />
+                <Entry Placeholder="Password" 
+                       Text="{Binding Password}" 
+                       IsPassword="True" 
+                       ReturnType="Done" />
 
-            <Button Text="Log In" 
-                    Command="{Binding LoginCommand}" 
-                    IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" />
+                <!-- Forgot Password Link -->
+                <Button Text="Forgot Password?"
+                        BackgroundColor="Transparent" 
+                        TextColor="{AppThemeBinding Light={StaticResource SecondaryDarkText}, Dark={StaticResource SecondaryBrush}}" 
+                        FontSize="Small"
+                        HorizontalOptions="End"
+                        Command="{Binding GoToForgotPasswordCommand}" />
 
-            <ActivityIndicator IsRunning="{Binding IsBusy}" 
-                               IsVisible="{Binding IsBusy}" 
-                               HorizontalOptions="Center" />
-        </VerticalStackLayout>
 
-        <!-- Footer Links -->
-        <Button Grid.Row="3" 
-                Grid.Column="0" 
-                Text="Create Account" 
-                Command="{Binding GoToRegisterCommand}" 
-                VerticalOptions="End" />
+                <Button Text="Log In" 
+                        Command="{Binding LoginCommand}" 
+                        IsEnabled="{Binding IsBusy, Converter={StaticResource InverseBoolConverter}}" />
 
-        <Button Grid.Row="3" 
-                Grid.Column="1" 
-                Text="Forgot Password" 
-                Command="{Binding GoToForgotPasswordCommand}" 
-                VerticalOptions="End" />
+                <ActivityIndicator IsRunning="{Binding IsBusy}" 
+                                   IsVisible="{Binding IsBusy}" 
+                                   HorizontalOptions="Center" />
+            </VerticalStackLayout>
 
-    </Grid>
+            <!-- Social Login -->
+            <VerticalStackLayout Grid.Row="3" Grid.ColumnSpan="2" Spacing="10" Margin="0,10,0,0" HorizontalOptions="Center">
+
+                <Label Text="Or sign in with"
+                       HorizontalOptions="Center"
+                       FontAttributes="Italic"
+                       FontSize="14"
+                       TextColor="Gray" />
+
+                <HorizontalStackLayout Spacing="10">
+                    <!-- Facebook Button -->
+                    <Frame BackgroundColor="#C8C8C8"
+                           CornerRadius="8"
+                           Padding="10"
+                           HasShadow="True"
+                           WidthRequest="150"
+                           HeightRequest="50"
+                           VerticalOptions="Center">
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image Source="facebook.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
+                            <Label Text="Facebook"
+                                   TextColor="#0D2B44"
+                                   FontSize="14"
+                                   VerticalOptions="Center"
+                                   Margin="10,0,0,0"/>
+                        </HorizontalStackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnFacebookSignInClicked" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+
+                    <!-- Google Button -->
+                    <Frame BackgroundColor="#C8C8C8"
+                           CornerRadius="8"
+                           Padding="10"
+                           HasShadow="True"
+                           WidthRequest="150"
+                           HeightRequest="50"
+                           VerticalOptions="Center">        
+                        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
+                            <Image Source="google.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
+                            <Label Text="Google"
+                                   TextColor="#0D2B44"
+                                   FontSize="14"
+                                   VerticalOptions="Center"
+                                   Margin="10,0,0,0"/>
+                        </HorizontalStackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnGoogleSignInClicked" />
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout Grid.Row="4" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" Spacing="2">
+                <Label Text="Don’t have an account?"
+                       HorizontalOptions="Center"
+                       VerticalOptions="Center" />
+                <Button Text="Create Account" 
+                        BackgroundColor="Transparent" 
+                        TextColor="{AppThemeBinding Light={StaticResource SecondaryDarkText}, Dark={StaticResource SecondaryBrush}}" 
+                        Command="{Binding GoToRegisterCommand}" 
+                        VerticalOptions="Center" 
+                        HorizontalOptions="Start" />
+            </HorizontalStackLayout>
+        </Grid>
+    </ScrollView>
 </ContentPage>

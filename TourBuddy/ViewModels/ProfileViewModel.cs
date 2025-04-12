@@ -108,6 +108,9 @@ namespace TourBuddy.ViewModels
         private ICommand _navigateToAlarmPageCommand;
         public ICommand NavigateToAlarmPageCommand => _navigateToAlarmPageCommand ??= new Command(async () => await NavigateToAlarmPage());
 
+        private ICommand _navigateToAlarmLogCommand;
+        public ICommand NavigateToAlarmLogCommand => _navigateToAlarmLogCommand ??= new Command(async () => await NavigateToAlarmLogPage());
+
         // Constructor
         public ProfileViewModel(IAuthService authService, SyncService syncService)
         {
@@ -284,6 +287,12 @@ namespace TourBuddy.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(AlarmPage)); // Navigate to AlarmPage
         }
+
+        private async Task NavigateToAlarmLogPage()
+        {
+            await Shell.Current.GoToAsync(nameof(AlarmLogPage));
+        }
+
 
         #region INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

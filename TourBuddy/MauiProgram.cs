@@ -5,6 +5,9 @@ using TourBuddy.Services.Database;
 using TourBuddy.Services.Auth;
 using TourBuddy.Helpers;
 using TourBuddy.Views;
+using TourBuddy.Services.Alarm;
+using Plugin.Maui.Audio;
+using Plugin.LocalNotification;
 
 namespace TourBuddy
 {
@@ -15,8 +18,10 @@ namespace TourBuddy
             var builder = MauiApp.CreateBuilder();
             builder
                 .UseMauiApp<App>()
+                .UseLocalNotification()
                 .ConfigureFonts(fonts =>
                 {
+                    fonts.AddFont("FontAwesome.otf", "FontAwesome");
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
@@ -44,6 +49,8 @@ namespace TourBuddy
             builder.Services.AddSingleton<SyncService>();
             builder.Services.AddSingleton<IAuthService, AuthService>();
             builder.Services.AddSingleton<IEmailService, EmailService>();
+            builder.Services.AddSingleton<IAlarmStorage, AlarmStorage>();
+            builder.Services.AddSingleton<IAudioManager>(AudioManager.Current);
 
             // Register views and view models
             builder.Services.AddTransient<LoginViewModel>();
@@ -51,6 +58,7 @@ namespace TourBuddy
 
             builder.Services.AddTransient<AlarmViewModel>();
             builder.Services.AddTransient<AlarmPage>();
+            builder.Services.AddTransient<AlarmLogPage>();
 
             builder.Services.AddTransient<RegisterViewModel>();
             builder.Services.AddTransient<RegisterPage>();
