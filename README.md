@@ -24,7 +24,7 @@
 
 A curated list of awesome resources, plugins, scripts, tutorials, and more for Adobe After Effects. ðŸ˜ŽðŸš€
 
-## Contents
+## Contents.sln
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
