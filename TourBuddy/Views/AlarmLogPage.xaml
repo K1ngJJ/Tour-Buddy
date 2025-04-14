@@ -4,51 +4,57 @@
              xmlns:vm="clr-namespace:TourBuddy.ViewModels"
              x:Class="TourBuddy.Views.AlarmLogPage"
              Title="Alarm Logs"
-             x:Name="AlarmLogPageRef">
+             x:Name="AlarmLogPageRef"
+             BackgroundColor="#0E2A47">
 
     <ScrollView>
         <VerticalStackLayout Padding="20" Spacing="15">
-            <StackLayout Padding="15">
-                <Label Text="Alarm Logs" 
-                       FontSize="24" 
-                       FontAttributes="Bold" 
-                       TextColor="White" 
-                       HorizontalOptions="Center" />
-            </StackLayout>
-
+            <!-- Title -->
             <StackLayout Padding="15">
                 <Label Text="Alarms" 
-                       FontSize="18" 
+                       FontSize="22" 
                        FontAttributes="Bold" 
                        HorizontalOptions="Center" 
+                       TextColor="White" 
                        Margin="0,0,0,10" />
-
-                <CollectionView x:Name="alarmsCollectionView"
-                                SelectionMode="Single"
-                                SelectionChanged="OnAlarmSelected">
-                    <CollectionView.ItemTemplate>
-                        <DataTemplate>
-                            <SwipeView>
-                                <SwipeView.RightItems>
-                                    <SwipeItems>
-                                        <SwipeItem Text="Delete"
-                                                   BackgroundColor="Red"
-                                                   Invoked="OnDeleteSwipeInvoked"
-                                                   CommandParameter="{Binding .}" />
-                                    </SwipeItems>
-                                </SwipeView.RightItems>
-
-                                <Grid Padding="10">
-                                    <VerticalStackLayout>
-                                        <Label Text="{Binding AlarmLabel}" FontAttributes="Bold" FontSize="18"/>
-                                        <Label Text="{Binding AlarmTime, StringFormat='{0:MMMM dd, yyyy h:mm tt}'}" FontSize="14"/>
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </SwipeView>
-                        </DataTemplate>
-                    </CollectionView.ItemTemplate>
-                </CollectionView>
             </StackLayout>
+
+            <!-- Alarm Collection -->
+            <CollectionView x:Name="alarmsCollectionView"
+                            SelectionMode="Single"
+                            SelectionChanged="OnAlarmSelected">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem Text="Delete"
+                                               BackgroundColor="Red"
+                                               Invoked="OnDeleteSwipeInvoked"
+                                               CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+
+                            <!-- Use Frame for rounded corners -->
+                            <Frame Padding="10" BackgroundColor="#1E3A56" CornerRadius="10" Margin="0,0,0,10">
+                                <VerticalStackLayout Spacing="10">
+                                    <!-- Alarm Label -->
+                                    <Label Text="{Binding AlarmLabel}" 
+                                           FontAttributes="Bold" 
+                                           FontSize="18"
+                                           TextColor="White"
+                                           HorizontalOptions="Center" />
+                                    <!-- Alarm Time formatted to 12-hour clock with AM/PM -->
+                                    <Label Text="{Binding AlarmTime, StringFormat='{0:hh:mm tt}'}" 
+                                           FontSize="14"
+                                           TextColor="LightGray"
+                                           HorizontalOptions="Center" />
+                                </VerticalStackLayout>
+                            </Frame>
+                        </SwipeView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
         </VerticalStackLayout>
     </ScrollView>
 
