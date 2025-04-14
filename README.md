@@ -11,18 +11,14 @@
 </p>
 
 <div align="center">
- .NET Multi-platform App UI, Build native, cross-platform desktop and mobile apps all in one framework.
-</div>
-
-<div align="center">
   <sub>
     Brought to you by <a href="[https://github.com/inlife](https://learn.microsoft.com/en-us/dotnet/maui/what-is-maui?view=net-maui-9.0)">@dotnet</a>
   </sub>
 </div>
 
-# Awesome After Effects
+# .NET Multi-platform App UI
 
-A curated list of awesome resources, plugins, scripts, tutorials, and more for Adobe After Effects. ðŸ˜ŽðŸš€
+Build native, cross-platform desktop and mobile apps all in one framework.
 
 ## Contents.sln
 
