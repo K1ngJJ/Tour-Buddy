@@ -95,6 +95,7 @@ namespace TourBuddy.ViewModels
         public bool HasError => !string.IsNullOrEmpty(ErrorMessage);
 
         // Commands
+
         private ICommand _changePasswordCommand;
         public ICommand ChangePasswordCommand => _changePasswordCommand ??= new Command(async () => await ChangePasswordAsync());
 

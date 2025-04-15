@@ -1,4 +1,5 @@
-﻿using TourBuddy.Services.Email;
+﻿using TourBuddy.Services.Google;
+using TourBuddy.Services.Email;
 using TourBuddy.ViewModels;
 using Microsoft.Extensions.Logging;
 using TourBuddy.Services.Database;
@@ -51,6 +52,9 @@ namespace TourBuddy
             builder.Services.AddSingleton<IEmailService, EmailService>();
             builder.Services.AddSingleton<IAlarmStorage, AlarmStorage>();
             builder.Services.AddSingleton<IAudioManager>(AudioManager.Current);
+
+            // Register Google Authentication service
+            builder.Services.AddSingleton<GoogleAuthService>();
 
             // Register views and view models
             builder.Services.AddTransient<LoginViewModel>();

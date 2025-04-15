@@ -39,6 +39,21 @@
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<AndroidSigningKeyStore>tourbuddy.keystore</AndroidSigningKeyStore>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0-android|AnyCPU'">
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidSigningStorePass>tourbuddy-tourbuddy</AndroidSigningStorePass>
+	  <AndroidSigningKeyAlias>buddy-key</AndroidSigningKeyAlias>
+	  <AndroidSigningKeyPass>tourbuddy-tourbuddy</AndroidSigningKeyPass>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0-android|AnyCPU'">
+	  <AndroidKeyStore>True</AndroidKeyStore>
+	  <AndroidSigningStorePass>tourbuddy-tourbuddy</AndroidSigningStorePass>
+	  <AndroidSigningKeyAlias>buddy-key</AndroidSigningKeyAlias>
+	  <AndroidSigningKeyPass>tourbuddy-tourbuddy</AndroidSigningKeyPass>
 	</PropertyGroup>
 
 	<ItemGroup>

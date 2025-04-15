@@ -7,11 +7,13 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.Runtime.CompilerServices;
+using TourBuddy.Services.Google; 
 
 namespace TourBuddy.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
+        private readonly GoogleAuthService _googleAuthService;
         private readonly IAuthService _authService;
 
         private string _email;
@@ -59,14 +61,53 @@ namespace TourBuddy.ViewModels
         public ICommand GoToRegisterCommand { get; }
         public ICommand GoToForgotPasswordCommand { get; }
 
-        public LoginViewModel(IAuthService authService)
+        public LoginViewModel(IAuthService authService, GoogleAuthService googleAuthService)
         {
             _authService = authService;
+            _googleAuthService = googleAuthService;
             Title = "Login";
 
             LoginCommand = new Command(async () => await LoginAsync());
             GoToRegisterCommand = new Command(async () => await GoToRegisterAsync());
             GoToForgotPasswordCommand = new Command(async () => await GoToForgotPasswordAsync());
+        }
+
+        public async Task LoginWithGoogleAsync()
+        {
+            try
+            {
+                // Authenticate user via Google
+                var googleServiceUser = await _googleAuthService.AuthenticateAsync();
+
+                // Map the GoogleAuthService.GoogleUser to your Models.GoogleUser
+                var modelGoogleUser = new GoogleUser
+                {
+                    Name = googleServiceUser.Name,
+                    Email = googleServiceUser.Email,
+                    Picture = googleServiceUser.Picture,
+                };
+
+                // Use modelGoogleUser for login or registration
+                Console.WriteLine($"User logged in: {modelGoogleUser.Name}");
+
+                // Check if user exists in the database and register/login
+                var loggedInUser = await _authService.LoginOrRegisterWithGoogleAsync(modelGoogleUser);
+
+                // If login/registration is successful, navigate to the ProfilePage
+                if (loggedInUser != null)
+                {
+                    Console.WriteLine("Login successful. Navigating to profile page...");
+                    await Shell.Current.GoToAsync("//ProfilePage");
+                }
+                else
+                {
+                    Console.WriteLine("Failed to log in or register the user.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error during Google login: {ex.Message}");
+            }
         }
 
         private async Task LoginAsync()

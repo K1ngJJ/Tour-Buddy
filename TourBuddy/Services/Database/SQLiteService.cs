@@ -88,5 +88,16 @@ namespace TourBuddy.Services.Database
             await InitializeDatabaseAsync();
             return await _database.Table<T>().Where(predicate).CountAsync() > 0;
         }
+
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            return await GetAsync<User>(u => u.Email.ToLower() == email.ToLower());
+        }
+
+        public async Task SaveUserAsync(User user)
+        {
+            await InsertAsync(user);
+        }
+
     }
 }

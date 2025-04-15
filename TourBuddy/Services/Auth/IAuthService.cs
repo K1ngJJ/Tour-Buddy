@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TourBuddy.Models;
+using TourBuddy.Services.Google;
+
 
 namespace TourBuddy.Services.Auth
 {
@@ -16,5 +18,8 @@ namespace TourBuddy.Services.Auth
         Task<bool> ResetPasswordAsync(string email, string token, string newPassword);
         Task<User> GetCurrentUserAsync();
         Task LogoutAsync();
+
+        // Add the Google login/register method
+        Task<User> LoginOrRegisterWithGoogleAsync(GoogleUser googleUser);
     }
 }

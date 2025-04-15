@@ -5,6 +5,7 @@ using TourBuddy.Services.Email;
 using System.Diagnostics;
 using System;
 using System.Threading.Tasks;
+using TourBuddy.Services.Google;
 
 namespace TourBuddy.Services.Auth
 {
@@ -193,5 +194,46 @@ namespace TourBuddy.Services.Auth
             _currentUser = null;
             return Task.CompletedTask;
         }
+
+        public async Task<User> LoginOrRegisterWithGoogleAsync(GoogleUser googleUser)
+        {
+            try
+            {
+                // Check if the user with this email already exists
+                var existingUser = await _sqliteService.GetAsync<User>(u => u.Email.ToLower() == googleUser.Email.ToLower());
+
+                if (existingUser != null)
+                {
+                    // If the user exists, just return the existing user (login)
+                    _currentUser = existingUser;
+                    return existingUser;
+                }
+                else
+                {
+                    // If the user doesn't exist, create a new user
+                    var newUser = new User
+                    {
+                        Username = googleUser.Name,          // Set the username as the Google user's name
+                        Email = googleUser.Email.ToLower(),  // Ensure the email is stored in lowercase
+                        PasswordHash = null,                 // No password needed for Google login
+                        CreatedAt = DateTime.UtcNow,
+                        IsSynced = false
+                    };
+
+                    // Save the new user to the database
+                    await _sqliteService.InsertAsync(newUser);
+
+                    _currentUser = newUser;
+                    return newUser;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in Google login or registration: {ex.Message}");
+                return null;
+            }
+        }
+
+
     }
 }
