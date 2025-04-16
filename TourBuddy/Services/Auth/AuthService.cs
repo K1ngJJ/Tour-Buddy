@@ -6,6 +6,7 @@ using System.Diagnostics;
 using System;
 using System.Threading.Tasks;
 using TourBuddy.Services.Google;
+using TourBuddy.Services.Facebook;
 
 namespace TourBuddy.Services.Auth
 {
@@ -230,6 +231,41 @@ namespace TourBuddy.Services.Auth
             catch (Exception ex)
             {
                 Debug.WriteLine($"Error in Google login or registration: {ex.Message}");
+                return null;
+            }
+        }
+
+        public async Task<User> LoginOrRegisterWithFacebookAsync(FacebookUser facebookUser)
+        {
+            try
+            {
+                // Check if the user already exists
+                var existingUser = await _sqliteService.GetAsync<User>(u => u.Email.ToLower() == facebookUser.Email.ToLower());
+
+                if (existingUser != null)
+                {
+                    _currentUser = existingUser;
+                    return existingUser;
+                }
+
+                // If not found, register new user
+                var newUser = new User
+                {
+                    Username = facebookUser.Name,
+                    Email = facebookUser.Email.ToLower(),
+                    PasswordHash = null, // Password not needed for social login
+                    CreatedAt = DateTime.UtcNow,
+                    IsSynced = false
+                };
+
+                await _sqliteService.InsertAsync(newUser);
+
+                _currentUser = newUser;
+                return newUser;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Error in Facebook login or registration: {ex.Message}");
                 return null;
             }
         }

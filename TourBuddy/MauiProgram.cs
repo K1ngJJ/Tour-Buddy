@@ -1,4 +1,5 @@
 ﻿using TourBuddy.Services.Google;
+using TourBuddy.Services.Facebook;
 using TourBuddy.Services.Email;
 using TourBuddy.ViewModels;
 using Microsoft.Extensions.Logging;
@@ -55,6 +56,8 @@ namespace TourBuddy
 
             // Register Google Authentication service
             builder.Services.AddSingleton<GoogleAuthService>();
+            builder.Services.AddSingleton<FacebookAuthService>();
+
 
             // Register views and view models
             builder.Services.AddTransient<LoginViewModel>();

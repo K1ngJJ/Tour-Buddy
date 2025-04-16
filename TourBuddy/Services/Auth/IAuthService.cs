@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TourBuddy.Models;
 using TourBuddy.Services.Google;
+using TourBuddy.Services.Facebook;
 
 
 namespace TourBuddy.Services.Auth
@@ -21,5 +22,8 @@ namespace TourBuddy.Services.Auth
 
         // Add the Google login/register method
         Task<User> LoginOrRegisterWithGoogleAsync(GoogleUser googleUser);
+
+        // Add the Facebook login/register method
+        Task<User> LoginOrRegisterWithFacebookAsync(FacebookUser facebookUser);
     }
 }

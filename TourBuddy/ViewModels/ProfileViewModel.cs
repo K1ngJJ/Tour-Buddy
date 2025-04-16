@@ -269,9 +269,19 @@ namespace TourBuddy.ViewModels
 
         private async Task LogoutAsync()
         {
+            bool confirm = await Application.Current.MainPage.DisplayAlert(
+                "Logout",
+                "Are you sure you want to log out?",
+                "Continue",
+                "Cancel");
+
+            if (!confirm)
+                return;
+
             await _authService.LogoutAsync();
             await Shell.Current.GoToAsync("//LoginPage");
         }
+
 
         protected void SetErrorMessage(string message)
         {

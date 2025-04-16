@@ -7,13 +7,16 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.Windows.Input;
 using System.Runtime.CompilerServices;
-using TourBuddy.Services.Google; 
+using TourBuddy.Services.Google;
+using TourBuddy.Services.Facebook;
+
 
 namespace TourBuddy.ViewModels
 {
     public class LoginViewModel : INotifyPropertyChanged
     {
         private readonly GoogleAuthService _googleAuthService;
+        private readonly FacebookAuthService _facebookAuthService;
         private readonly IAuthService _authService;
 
         private string _email;
@@ -61,10 +64,11 @@ namespace TourBuddy.ViewModels
         public ICommand GoToRegisterCommand { get; }
         public ICommand GoToForgotPasswordCommand { get; }
 
-        public LoginViewModel(IAuthService authService, GoogleAuthService googleAuthService)
+        public LoginViewModel(IAuthService authService, GoogleAuthService googleAuthService, FacebookAuthService facebookAuthService)
         {
             _authService = authService;
             _googleAuthService = googleAuthService;
+            _facebookAuthService = facebookAuthService;
             Title = "Login";
 
             LoginCommand = new Command(async () => await LoginAsync());
@@ -72,14 +76,14 @@ namespace TourBuddy.ViewModels
             GoToForgotPasswordCommand = new Command(async () => await GoToForgotPasswordAsync());
         }
 
-        public async Task LoginWithGoogleAsync()
+        public async Task<bool> LoginWithGoogleAsync()
         {
             try
             {
-                // Authenticate user via Google
                 var googleServiceUser = await _googleAuthService.AuthenticateAsync();
+                if (googleServiceUser == null)
+                    return false;
 
-                // Map the GoogleAuthService.GoogleUser to your Models.GoogleUser
                 var modelGoogleUser = new GoogleUser
                 {
                     Name = googleServiceUser.Name,
@@ -87,28 +91,57 @@ namespace TourBuddy.ViewModels
                     Picture = googleServiceUser.Picture,
                 };
 
-                // Use modelGoogleUser for login or registration
-                Console.WriteLine($"User logged in: {modelGoogleUser.Name}");
-
-                // Check if user exists in the database and register/login
                 var loggedInUser = await _authService.LoginOrRegisterWithGoogleAsync(modelGoogleUser);
-
-                // If login/registration is successful, navigate to the ProfilePage
                 if (loggedInUser != null)
                 {
-                    Console.WriteLine("Login successful. Navigating to profile page...");
                     await Shell.Current.GoToAsync("//ProfilePage");
+                    return true;
                 }
-                else
-                {
-                    Console.WriteLine("Failed to log in or register the user.");
-                }
+
+                return false;
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error during Google login: {ex.Message}");
+                return false;
             }
         }
+
+
+        public async Task<bool> LoginWithFacebookAsync()
+        {
+            try
+            {
+                var facebookUser = await _facebookAuthService.AuthenticateAsync();
+                if (facebookUser == null)
+                    return false;
+
+                var modelFacebookUser = new FacebookUser
+                {
+                    Name = facebookUser.Name,
+                    Email = facebookUser.Email,
+                    Picture = facebookUser.Picture
+                };
+
+                var loggedInUser = await _authService.LoginOrRegisterWithFacebookAsync(modelFacebookUser);
+                if (loggedInUser != null)
+                {
+                    await Application.Current.MainPage.DisplayAlert("Facebook", "Login successful!", "Proceed");
+                    await Shell.Current.GoToAsync("//ProfilePage");
+                    return true;
+                }
+
+                return false;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error during Facebook login: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Facebook", $"Login failed: {ex.Message}", "OK");
+                return false;
+            }
+        }
+
+
 
         private async Task LoginAsync()
         {

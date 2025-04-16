@@ -14,26 +14,47 @@
               RowSpacing="15"
               ColumnSpacing="10">
 
-            <!-- App Title -->
-            <VerticalStackLayout Grid.Row="0" Grid.ColumnSpan="2" VerticalOptions="Center">
-                <Image
-                    Source="dotnet_bot.png"
-                    HeightRequest="150"
-                    Aspect="AspectFit" />
+            <!-- Top Section -->
+            <VerticalStackLayout Grid.Row="0"
+                                 Grid.ColumnSpan="2"
+                                 VerticalOptions="CenterAndExpand"
+                                 Spacing="8"
+                                 Padding="0,20,0,0">
+                <Image x:Name="LogoImage"
+                       Source="tour_buddy.png"
+                       HeightRequest="100"
+                       Aspect="AspectFit"
+                       HorizontalOptions="Center"
+                       Opacity="0"
+                       Scale="0.8" />
 
-                <Label
-                    Text="Tour Buddy"
-                    Style="{StaticResource Headline}"
-                    HorizontalOptions="Center" />
+                <Label Text="Tour Buddy"
+                       FontSize="26"
+                       FontAttributes="Bold"
+                       HorizontalOptions="Center"
+                       TextColor="{AppThemeBinding Light=#0D2B44, Dark=#17A085}" />
+
+                <Label Text="Your perfect travel companion"
+                       FontSize="14"
+                       HorizontalOptions="Center"
+                       TextColor="{AppThemeBinding Light=#6c757d, Dark=#adb5bd}" />
             </VerticalStackLayout>
 
             <!-- Error Message -->
-            <Label Grid.Row="1" 
-                   Grid.ColumnSpan="2" 
-                   Text="{Binding ErrorMessage}" 
-                   TextColor="Red" 
-                   HorizontalOptions="Center"
-                   IsVisible="{Binding HasError}" />
+            <Frame Grid.Row="1"
+                   Grid.ColumnSpan="2"
+                   IsVisible="{Binding HasError}"
+                   Padding="10"
+                   Margin="0,-10,0,0"
+                   CornerRadius="6"
+                   HasShadow="False"
+                   BackgroundColor="{AppThemeBinding Light=#ffebee, Dark=#4a0000}"
+                   BorderColor="{AppThemeBinding Light=#ffcdd2, Dark=#b71c1c}">
+                <Label Text="{Binding ErrorMessage}"
+                       TextColor="{AppThemeBinding Light=#b71c1c, Dark=#ef9a9a}"
+                       FontSize="12"
+                       HorizontalOptions="Center" />
+            </Frame>
 
             <!-- Form -->
             <VerticalStackLayout Grid.Row="2" Grid.ColumnSpan="2" Spacing="5">
@@ -68,28 +89,46 @@
             <!-- Social Login -->
             <VerticalStackLayout Grid.Row="3" Grid.ColumnSpan="2" Spacing="10" Margin="0,10,0,0" HorizontalOptions="Center">
 
-                <Label Text="Or sign in with"
-                       HorizontalOptions="Center"
-                       FontAttributes="Italic"
-                       FontSize="14"
-                       TextColor="Gray" />
+                <!-- Divider with lines -->
+                <Grid ColumnDefinitions="*, Auto, *" Padding="10,0">
+                    <BoxView Grid.Column="0"
+                 HeightRequest="1"
+                 BackgroundColor="LightGray"
+                 VerticalOptions="Center"
+                 Margin="10,0" />
 
+                    <Label Grid.Column="1"
+               Text="Or sign in with"
+               FontAttributes="Italic"
+               FontSize="14"
+               TextColor="Gray"
+               VerticalOptions="Center"
+               HorizontalOptions="Center" />
+
+                    <BoxView Grid.Column="2"
+                 HeightRequest="1"
+                 BackgroundColor="LightGray"
+                 VerticalOptions="Center"
+                 Margin="10,0" />
+                </Grid>
+
+                <!-- Social buttons -->
                 <HorizontalStackLayout Spacing="10">
                     <!-- Facebook Button -->
                     <Frame BackgroundColor="#C8C8C8"
-                           CornerRadius="8"
-                           Padding="10"
-                           HasShadow="True"
-                           WidthRequest="150"
-                           HeightRequest="50"
-                           VerticalOptions="Center">
+               CornerRadius="8"
+               Padding="10"
+               HasShadow="True"
+               WidthRequest="150"
+               HeightRequest="50"
+               VerticalOptions="Center">
                         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                             <Image Source="facebook.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
                             <Label Text="Facebook"
-                                   TextColor="#0D2B44"
-                                   FontSize="14"
-                                   VerticalOptions="Center"
-                                   Margin="10,0,0,0"/>
+                       TextColor="#0D2B44"
+                       FontSize="14"
+                       VerticalOptions="Center"
+                       Margin="10,0,0,0"/>
                         </HorizontalStackLayout>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnFacebookSignInClicked" />
@@ -98,19 +137,19 @@
 
                     <!-- Google Button -->
                     <Frame BackgroundColor="#C8C8C8"
-                           CornerRadius="8"
-                           Padding="10"
-                           HasShadow="True"
-                           WidthRequest="150"
-                           HeightRequest="50"
-                           VerticalOptions="Center">        
+               CornerRadius="8"
+               Padding="10"
+               HasShadow="True"
+               WidthRequest="150"
+               HeightRequest="50"
+               VerticalOptions="Center">
                         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="Center">
                             <Image Source="google.png" WidthRequest="24" HeightRequest="24" VerticalOptions="Center" />
                             <Label Text="Google"
-                                   TextColor="#0D2B44"
-                                   FontSize="14"
-                                   VerticalOptions="Center"
-                                   Margin="10,0,0,0"/>
+                       TextColor="#0D2B44"
+                       FontSize="14"
+                       VerticalOptions="Center"
+                       Margin="10,0,0,0"/>
                         </HorizontalStackLayout>
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="OnGoogleSignInClicked" />
@@ -118,6 +157,7 @@
                     </Frame>
                 </HorizontalStackLayout>
             </VerticalStackLayout>
+
 
             <HorizontalStackLayout Grid.Row="4" Grid.ColumnSpan="2" HorizontalOptions="Center" VerticalOptions="Center" Spacing="2">
                 <Label Text="Don’t have an account?"

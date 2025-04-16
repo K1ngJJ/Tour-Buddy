@@ -16,5 +16,27 @@ public partial class RegisterPage : ContentPage
 		InitializeComponent();
         _viewModel = viewModel;
         BindingContext = _viewModel;
+        //StartInfiniteLogoAnimation();
     }
+
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+
+        LogoImage.Opacity = 0;
+        LogoImage.Scale = 0.8;
+
+        await LogoImage.FadeTo(1, 800, Easing.CubicInOut);
+        await LogoImage.ScaleTo(1, 500, Easing.CubicOut);
+
+    }
+
+    //private async void StartInfiniteLogoAnimation()
+    //{
+    //    while (true)
+    //    {
+    //        await LogoImage.ScaleTo(1.1, 1000, Easing.SinInOut);
+    //        await LogoImage.ScaleTo(1.0, 1000, Easing.SinInOut);
+    //    }
+    //}
 }
